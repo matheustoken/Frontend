@@ -82,27 +82,6 @@ atualizar(){
     this.clientService.remover(id)
     .subscribe(_ => this.obterClientesCadastrados());
   }
-  obterClientesFiltrados() {
-    this.clientesFiltrados$ = this.clientService.filtrarClientes({
-      cidade: this.filtroCidade,
-      estado: this.filtroEstado,
-      cep: this.filtroCep,
-    });
-  }
-
-  aplicarFiltro() {
-    this.obterClientesFiltrados();
-  }
-
-  limparFiltro() {
-    this.filtroCidade = '';
-    this.filtroEstado = '';
-    this.filtroCep = '';
-    this.obterClientesFiltrados();
-  }
-
-
-
 
 }
 

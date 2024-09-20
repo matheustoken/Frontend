@@ -1,4 +1,3 @@
-
 <div class="container">
   <form>
     <div>
@@ -17,12 +16,29 @@
 
 <div>
   <label>Cidade</label>
-  <input type="text" [(ngModel)]="cidade" name="cidade">
+  <input type="text" [(ngModel)]="cidade" name="cidade"
+  required
+        #cidadeInput="ngModel"
+      />
+      <div *ngIf="cidadeInput.invalid && (cidadeInput.dirty || cidadeInput.touched)">
+        <small class="error" *ngIf="cidadeInput.errors?.['required']">O campo Cidade é obrigatório.</small>
+      </div>
+  
+  
+  
 </div>
 
 <div>
   <label>Nome</label>
-  <input type="text" [(ngModel)]="nome" name="nome">
+  <input type="text" [(ngModel)]="nome" maxlength="25" name="nome"
+  required
+        #nomeInput="ngModel"
+      />
+      <div *ngIf="nomeInput.invalid && (nomeInput.dirty || nomeInput.touched)">
+        <small class="error" *ngIf="nomeInput.errors?.['required']">O campo Nome é obrigatório.</small>
+        <small class="error" *ngIf="nomeInput.errors?.['maxlength']">O nome pode ter no máximo 25 caracteres.</small>
+      </div>
+
 </div>
     <div>
       <label>Estado</label>
@@ -68,3 +84,5 @@
   </tbody>
 </table>
 </div>
+
+
