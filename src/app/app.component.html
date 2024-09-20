@@ -1,0 +1,70 @@
+
+<div class="container">
+  <form>
+    <div>
+  <label>Cep</label>
+  <input type="text" [(ngModel)]="cep" name="cep"
+  required
+        pattern="^\d{5}-\d{3}$"
+        #cepInput="ngModel"
+        placeholder="Ex: 12345-678"
+  />
+  <div *ngIf="cepInput.invalid && (cepInput.dirty || cepInput.touched)">
+    <small class="error" *ngIf="cepInput.errors?.['required']">O campo CEP é obrigatório.</small>
+    <small class="error" *ngIf="cepInput.errors?.['pattern']">O CEP deve estar no formato 00000-000.</small>
+  </div>
+</div>
+
+<div>
+  <label>Cidade</label>
+  <input type="text" [(ngModel)]="cidade" name="cidade">
+</div>
+
+<div>
+  <label>Nome</label>
+  <input type="text" [(ngModel)]="nome" name="nome">
+</div>
+    <div>
+      <label>Estado</label>
+      <select name="cars" id="cars" [(ngModel)]="estado">
+        <option [value]="estado.id" *ngFor="let estado of estados$ | async">{{estado.sigla}} - {{estado.nome}}</option>
+      </select>
+    </div>
+<button type="button" (click)="cadastrarClientes()"
+        [disabled]="cepInput.invalid">
+        Cadastrar
+</button>
+
+  <button type="button" (click)="atualizar()"
+  [disabled]="cepInput.invalid">
+    Editar
+  </button>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Cep</th>
+    <th>Cidade</th>
+    <th>Nome</th>
+    <th>Estado</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let cliente of clientes$ | async">
+    <td>{{ cliente.id }}</td>
+    <td>{{ cliente.cep }}</td>
+    <td>{{ cliente.cidade }}</td>
+    <td>{{ cliente.nome }}</td>
+    <td>{{ cliente.estado.sigla }}- {{ cliente.estado.nome }}</td>
+    <td>
+      <span (click)="preencherCampos(cliente)">alterar </span>
+      <span (click)="remover(cliente.id!)">remover </span>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+</div>
